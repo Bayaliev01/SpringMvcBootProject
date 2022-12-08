@@ -1,0 +1,129 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Companies</title>
+    <style>
+        @import url(https://fonts.googleapis.com/css?family=Open+Sans:400,600);
+
+        *, *:before, *:after {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background: white;
+            font-family: 'Open Sans', sans-serif;
+        }
+
+        table {
+            background: #012B39;
+            border-radius: 0.25em;
+            border-collapse: collapse;
+            margin: 0 auto;
+            margin-top: 250px;
+            width: 900px;
+            height: 100px;
+        }
+
+        th {
+            border-bottom: 1px solid #364043;
+            color: rgba(224, 182, 90, 0.97);
+            font-size: 0.85em;
+            font-weight: 600;
+            padding: 0.5em 1em;
+            text-align: left;
+        }
+
+        td {
+            color: white;
+            font-weight: 400;
+            padding: 0.65em 1em;
+        }
+
+        .disabled td {
+            color: #4F5F64;
+        }
+
+        tbody tr {
+            transition: background 0.25s ease;
+        }
+
+        tbody tr:hover {
+            background: #014055;
+        }
+
+        button {
+            background-color: #4F5F64;
+            color: white;
+            width: 100px;
+            height: 40px;
+            border-radius: 5px;
+        }
+
+        input {
+            background-color: #4F5F64;
+            border-radius: 5px;
+            color: white;
+            width: 300px;
+            height: 40px;
+        }
+
+        input:hover {
+            background: #364043;
+        }
+
+        button:hover {
+            background: #364043;
+        }
+
+    </style>
+</head>
+<body>
+
+<table>
+    <thead>
+    <tr>
+        <th scope="colgroup">ID</th>
+        <th scope="col">COMPANY NAME</th>
+        <th scope="col">LOCATED COUNTRY</th>
+        <th scope="col">COUNT STUDENT</th>
+        <th scope="col">COURSES</th>
+        <th scope="col">UPDATE</th>
+        <th scope="col">DELETE</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="company: ${companies}">
+        <td th:text="${company.id}"></td>
+        <td th:text="${company.companyName}"></td>
+        <td th:text="${company.locatedCountry}"></td>
+        <td th:text="${company.count}"></td>
+
+
+        <td><a th:href="@{/courses/{id}(id=${company.getId()})}">
+            <button>Courses</button>
+        </a>
+        </td>
+
+        <td><a th:href="@{/updateCompany(companyId=${company.id})}">
+            <button>Update</button>
+        </a>
+        </td>
+
+        <td><a th:href="@{/deleteCompany
+ (companyId=${company.id})}">
+            <button>Delete</button>
+        </a>
+        </td>
+
+    </tr>
+    </tbody>
+</table>
+<br><br><br><br>
+<input style=" display: block; margin:auto; font-size:30px;" type="button" value="Add company"
+       onclick="window.location.href = 'addCompany'">
+
+</body>
+</html>

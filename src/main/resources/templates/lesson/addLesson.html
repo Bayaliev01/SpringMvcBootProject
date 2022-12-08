@@ -1,0 +1,100 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>add-lesson</title>
+    <style>
+        * {
+            margin: 0
+        }
+
+
+        .container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            height: 100vh;
+            background-color: #6699cc;
+        }
+
+        .container h1 {
+            color: white;
+            font-family: sans-serif;
+            margin: 20px;
+        }
+
+        .registartion-form {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: 100%;
+            height: 600px;
+            color: rgb(255, 255, 255);
+            font-size: 18px;
+            font-family: sans-serif;
+            background-color: #154a68;
+            padding: 20px;
+        }
+
+        .registartion-form input,
+        .registartion-form select,
+        .registartion-form textarea {
+            border: none;
+            padding: 5px;
+            margin-top: 10px;
+            font-family: sans-serif;
+        }
+
+        .registartion-form input:focus,
+        .registartion-form textarea:focus {
+            box-shadow: 3px 3px 10px rgb(228, 228, 228), -3px -3px 10px rgb(224, 224, 224);
+        }
+
+        .registartion-form .submit {
+            width: 100%;
+            padding: 8px 0;
+            font-size: 20px;
+            color: rgb(44, 44, 44);
+            background-color: #ffffff;
+            border-radius: 5px;
+        }
+
+        .registartion-form .submit:hover {
+            box-shadow: 3px 3px 6px rgb(255, 214, 176);
+        }
+
+    </style>
+</head>
+<body>
+<div>
+    <!--    <form-->
+    <!--            action="#"-->
+    <!--            th:action="@{/{id}/saveLesson(id=${courseId})}"-->
+    <!--            th:object="${lesson}"-->
+    <!--            method="POST">-->
+
+    <!--        <input type="hidden" name="id" th:field="*{id}">-->
+    <!--        <input type="text" name="Lesson name" th:field="*{lessonName}" placeholder="Lesson Name" required>-->
+    <!--        <br><br>-->
+    <form
+            action="#"
+            th:action="@{/{id}/saveLesson(id=${courseId})}"
+            th:object="${lesson}"
+            method="post" name="registration" class="registartion-form" onsubmit="return formValidation()">
+
+        <table>
+            <input type="hidden" name="id" th:field="*{id}">
+            <input type="text" name="Lesson name" th:field="*{lessonName}" placeholder="Lesson Name" required>
+            <br><br>
+            <br><br>
+        </table>
+        <input type="submit" value="Add">
+
+    </form>
+</div>
+</body>
+</html>

@@ -1,0 +1,176 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Courses</title>
+    <style>  @import url(https://fonts.googleapis.com/css?family=Open+Sans:400,600);
+
+    *, *:before, *:after {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+    }
+
+    body {
+        background: white;
+        font-family: 'Open Sans', sans-serif;
+    }
+
+    table {
+        background: #012B39;
+        border-radius: 0.25em;
+        border-collapse: collapse;
+        margin: 0 auto;
+        margin-top: 250px;
+        width: 900px;
+        height: 100px;
+    }
+
+    th {
+        border-bottom: 1px solid #364043;
+        color: rgba(224, 182, 90, 0.97);
+        font-size: 0.85em;
+        font-weight: 600;
+        padding: 0.5em 1em;
+        text-align: left;
+    }
+
+    td {
+        color: white;
+        font-weight: 400;
+        padding: 0.65em 1em;
+    }
+
+    .disabled td {
+        color: #4F5F64;
+    }
+
+    tbody tr {
+        transition: background 0.25s ease;
+    }
+
+    tbody tr:hover {
+        background: #014055;
+    }
+
+    button {
+        background-color: dimgray;
+        color: white;
+        width: 100px;
+        height: 40px;
+        border-radius: 5px;
+    }
+
+    input {
+        background-color: dimgray;
+        border-radius: 5px;
+        color: white;
+        width: 100px;
+        height: 40px;
+    }
+
+
+    </style>
+</head>
+<body>
+<table class="table table-bordered">
+    <!--    <thead class="table-dark">-->
+    <!--    <tr>-->
+    <!--        <th scope="colgroup">Id</th>-->
+    <!--        <th scope="col">Group name</th>-->
+    <!--        <th scope="col">Date of start</th>-->
+    <!--        <th scope="col">image</th>-->
+    <!--        <th scope="col">Course</th>-->
+    <!--        <th scope="col">Student</th>-->
+    <!--        <th scope="col">Update</th>-->
+    <!--        <th scope="col">Delete</th>-->
+    <!--    </tr>-->
+    <!--    </thead>-->
+    <!--    <tbody class="table-success">-->
+    <!--    <tr th:each="group: ${groupCourses}">-->
+    <!--        <td th:text="${group.id}"></td>-->
+    <!--        <td th:text="${group.groupName}"></td>-->
+    <!--        <td th:text="${group.dateOfStart}"></td>-->
+    <!--        <td th:text="${group.image}"></td>-->
+    <!--        <td th:text="${group.count}"></td>-->
+
+    <!--        <td><a th:href="@{/students/{id}(id=${group.getId()})}">-->
+    <!--            <button>Student</button>-->
+    <!--        </a>-->
+    <!--        </td>-->
+
+    <!--        <td><a th:href="@{/updateGroupByCourseId/{courseId}/{id}(id=${group.id}, courseId=${courseId})}">-->
+    <!--            <button>Update</button>-->
+    <!--        </a>-->
+    <!--        </td>-->
+    <!--        <td><a th:href="@{/{courseId}/{id}/deleteGroupByCourseId(id=${group.id},courseId=${courseId})}">-->
+    <!--            <button>Delete</button>-->
+    <!--        </a>-->
+    <!--        </td>-->
+    <!--    </tr>-->
+    <!--    </tbody>-->
+    <thead>
+    <tr>
+        <th scope="colgroup">Id</th>
+        <th scope="col">Group name</th>
+        <th scope="col">Date of start</th>
+        <th scope="col">image</th>
+        <th scope="col">Course</th>
+        <th scope="col">Ass Student</th>
+        <th scope="col">Student</th>
+        <th scope="col">Update</th>
+        <th scope="col">Delete</th>
+    </tr>
+    </thead>
+    <tbody class="table-success">
+    <tr th:each="group: ${groupCourses}">
+        <td th:text="${group.id}"></td>
+        <td th:text="${group.groupName}"></td>
+        <td th:text="${group.dateOfStart}"></td>
+        <td th:text="${group.image}"></td>
+        <td th:text="${group.count}"></td>
+        <td>
+            <form th:method="POST"
+                  th:action="@{/{groupId}/assignStudent(groupId=${group.getId()})}">
+                <select name="instructor" class="form-select form-select-sm" aria-label=".form-select-sm example"
+                        th:object="${student}" th:field="*{id}">
+                    <option th:each="student : ${students}"
+                            th:value="${student.id}"
+                            th:text="${student.getFirstName()}"></option>
+                </select>
+                <input type="submit" value="submit"/>
+            </form>
+        </td>
+
+        <td><a th:href="@{/students/{id}(id=${group.getId()})}">
+            <button>Student</button>
+        </a>
+        </td>
+
+        <td><a th:href="@{/updateGroupByCourseId/{courseId}/{id}(id=${group.id}, courseId=${courseId})}">
+            <button>Update</button>
+        </a>
+        </td>
+        <td><a th:href="@{/{courseId}/{id}/deleteGroupByCourseId(id=${group.id},courseId=${courseId})}">
+            <button>Delete</button>
+        </a>
+        </td>
+    </tr>
+    </tbody>
+</table>
+<br><br><br><br>
+<div style="text-align: center">
+    <a th:href="@{/groups/{companyId}/{id}/addGroupByCourseId(id=${courseId}, companyId=${companyId})}">
+        <button style="font-size: 25px;height: 40px;width: 200px ;border-radius: 5px  "> Add Group</button>
+    </a>
+    <div style="text-align: center">
+        <a th:href="@{/courses/{id}(id=${courseId})}">
+            <button style="font-size: 25px;height: 40px;width: 200px ;border-radius: 5px  "> Courses</button>
+        </a>
+    </div>
+</div>
+</body>
+</html>
